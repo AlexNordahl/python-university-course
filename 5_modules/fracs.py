@@ -62,6 +62,12 @@ class TestFractions(unittest.TestCase):
     def setUp(self):
         self.zero = [0, 1]
 
+    def test_normalize(self):
+        self.assertCountEqual(normalize([3, -6]), [-1, 2])
+        self.assertCountEqual(normalize([-3, 6]), [-1, 2])
+        self.assertCountEqual(normalize([-3, -6]), [1, 2])
+        self.assertCountEqual(normalize([12, -6]), [-2, 1])
+
     def test_add_frac(self):
         self.assertEqual(add_frac([1, 2], [1, 3]), [5, 6])
         self.assertEqual(add_frac(self.zero, self.zero), self.zero)
@@ -111,8 +117,6 @@ class TestFractions(unittest.TestCase):
         self.assertEqual(cmp_frac([27, 9], [9, 3]), True)
         self.assertEqual(cmp_frac([-1, 2], [1, -2]), True)
         self.assertEqual(cmp_frac([-1, 2], [-1, -2]), False)
-
-    def tearDown(self): pass
 
 if __name__ == '__main__':
     unittest.main()
