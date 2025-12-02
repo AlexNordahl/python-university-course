@@ -1,34 +1,36 @@
 from rectangles import Rectangle
 from points import Point
+import pytest
 
-unit_rect = Rectangle(0, 0, 1, 1)
+@pytest.fixture
+def unit_rect():
+    return Rectangle(0, 0, 1, 1)
 
-def test_print():
+def test_print(unit_rect):
     assert str(unit_rect) == "[(0, 0), (1, 1)]"
     assert repr(unit_rect) == "Rectangle(0, 0, 1, 1)"
 
-def test_equal():
+def test_equal(unit_rect):
     assert unit_rect == unit_rect
     assert unit_rect != Rectangle(0, 0, 1, 2)
 
-def test_center():
+def test_center(unit_rect):
     assert unit_rect.center() == Point(0.5, 0.5)
     assert Rectangle(-1, -1, 1, 1).center() == Point(0, 0)
 
-def test_area():
+def test_area(unit_rect):
     assert unit_rect.area() == 1
     assert Rectangle(-1, -1, 1, 1).area() == 4
 
-def test_move():
-    rect1 = unit_rect.copy()
-    rect1.move(-3, -3)
-    assert rect1 ==  Rectangle(-3, -3, -2, -2)
+def test_move(unit_rect):
+    unit_rect.move(-3, -3)
+    assert unit_rect ==  Rectangle(-3, -3, -2, -2)
 
     rect2 = Rectangle(0, 0, 1, 1)
     rect2.move(4, 4)
     assert rect2 == Rectangle(4, 4, 5, 5)
 
-def test_from_points():
+def test_from_points(unit_rect):
     points = (Point(0, 0), Point(1, 1))
     rect1 = Rectangle.from_points(points)
 
