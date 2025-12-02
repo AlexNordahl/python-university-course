@@ -1,15 +1,20 @@
-import itertools
 import random
 
 class ZeroOne:
     def __init__(self):
-        self.flag = False
+        self.flag = True
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        return int(not self.flag)
+        self.flag = not self.flag
+        return int(self.flag)
+    
+zo = ZeroOne()
+assert(next(zo) == 0)
+assert(next(zo) == 1)
+assert(next(zo) == 0)
 
 class RandomDir:
     def __init__(self):
